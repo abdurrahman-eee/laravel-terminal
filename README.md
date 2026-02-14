@@ -29,12 +29,46 @@ A powerful web-based terminal for Laravel applications. Execute artisan commands
 
 - PHP 8.1+
 - Laravel 10, 11, or 12
+- Composer
+
+## Download
+
+📦 **GitHub Repository**: [https://github.com/abdurrahman-eee/laravel-terminal](https://github.com/abdurrahman-eee/laravel-terminal)
+
+You can clone or download the repository from GitHub, or install it directly via Composer (recommended).
 
 ## Installation
 
-### Step 1: Add the GitHub repository to your `composer.json`
+### Quick Install (Recommended)
 
-Add this to your project's `composer.json`:
+For experienced developers, here's the quick version:
+
+```bash
+# Add the repository to your composer.json
+composer config repositories.laravel-terminal vcs https://github.com/abdurrahman-eee/laravel-terminal
+
+# Install the package
+composer require abdurrahman/laravel-terminal
+
+# Publish config (optional)
+php artisan vendor:publish --tag=terminal-config
+
+# Visit /terminal in your browser
+```
+
+### Detailed Installation Guide
+
+Follow these steps for a complete installation:
+
+#### Step 1: Add the GitHub Repository
+
+Open your terminal and navigate to your Laravel project root, then run:
+
+```bash
+composer config repositories.laravel-terminal vcs https://github.com/abdurrahman-eee/laravel-terminal
+```
+
+**Or manually edit** your `composer.json` file and add this in the root object:
 
 ```json
 {
@@ -47,46 +81,91 @@ Add this to your project's `composer.json`:
 }
 ```
 
-### Step 2: Install the package
+> 💡 **Why?** This tells Composer where to download the package from GitHub.
+
+#### Step 2: Install the Package
+
+Run the following command in your terminal:
 
 ```bash
 composer require abdurrahman/laravel-terminal
 ```
 
-Laravel will auto-discover the service provider. No manual registration needed.
+This will:
+- Download the package from GitHub
+- Install all dependencies
+- Auto-register the service provider (Laravel auto-discovery)
 
-### Step 3: Publish the config (optional)
+> ✅ **No manual provider registration needed!** Laravel will automatically discover the package.
 
-Publish the config file to customize settings:
+#### Step 3: Publish Configuration (Optional)
+
+If you want to customize settings like middleware, route prefix, blocked commands, etc:
 
 ```bash
 php artisan vendor:publish --tag=terminal-config
 ```
 
-### Step 4: Publish the views (optional)
+This creates `config/terminal.php` where you can modify:
+- Route prefix (default: `/terminal`)
+- Middleware (default: `web`, `auth`)
+- Blocked/allowed commands
+- Command timeout
 
-Publish the views if you want to customize the terminal UI:
+#### Step 4: Publish Views (Optional)
+
+If you want to customize the terminal UI:
 
 ```bash
 php artisan vendor:publish --tag=terminal-views
 ```
 
-### Step 5: Visit the terminal
+This copies the Blade templates to `resources/views/vendor/terminal/` for customization.
 
-Open your browser and go to:
+#### Step 5: Access the Terminal
+
+Open your browser and visit:
 
 ```
 https://yoursite.com/terminal
 ```
 
-That's it! 🎉
+> 🔒 **Default Protection**: Routes are protected by `auth` middleware. Make sure you're logged in!
 
-### Alternative: Local path installation
+**That's it!** 🎉 You should now see the terminal dashboard.
 
-If you prefer to keep the package inside your project:
+---
 
-1. Copy the package folder to `packages/abdurrahman/laravel-terminal/`
-2. Add this to your `composer.json`:
+### Alternative: Local Path Installation
+
+If you prefer to include the package directly in your project (without GitHub):
+
+#### Option A: Clone the Repository
+
+```bash
+# Navigate to your Laravel project
+cd your-laravel-project
+
+# Create packages directory
+mkdir -p packages/abdurrahman
+
+# Clone the repository
+cd packages/abdurrahman
+git clone https://github.com/abdurrahman-eee/laravel-terminal.git
+cd ../../..
+
+# Add to composer.json
+composer config repositories.laravel-terminal path packages/abdurrahman/laravel-terminal
+
+# Install
+composer require abdurrahman/laravel-terminal
+```
+
+#### Option B: Download ZIP
+
+1. Download ZIP from [GitHub](https://github.com/abdurrahman-eee/laravel-terminal/archive/refs/heads/main.zip)
+2. Extract to `packages/abdurrahman/laravel-terminal/` in your Laravel project
+3. Add this to your `composer.json`:
 
 ```json
 {
@@ -99,7 +178,40 @@ If you prefer to keep the package inside your project:
 }
 ```
 
-3. Run `composer require abdurrahman/laravel-terminal`
+4. Run:
+
+```bash
+composer require abdurrahman/laravel-terminal
+```
+
+---
+
+### Troubleshooting
+
+**Issue**: Package not found or version conflicts
+
+**Solution**: Make sure you've added the repository correctly. Run:
+```bash
+composer clear-cache
+composer update abdurrahman/laravel-terminal
+```
+
+**Issue**: "Target class does not exist" error
+
+**Solution**: Clear your application cache:
+```bash
+php artisan config:clear
+php artisan cache:clear
+composer dump-autoload
+```
+
+**Issue**: Can't access `/terminal` route
+
+**Solution**: Make sure you're logged in (default middleware is `auth`). Or publish and edit the config to change middleware:
+```bash
+php artisan vendor:publish --tag=terminal-config
+# Edit config/terminal.php and change 'middleware' => ['web']
+```
 
 ## Configuration
 
