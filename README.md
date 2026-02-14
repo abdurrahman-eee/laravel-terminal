@@ -2,6 +2,12 @@
 
 A powerful web-based terminal for Laravel applications. Execute artisan commands, manage packages, run shell commands, and more — all from your browser.
 
+![Laravel Terminal](https://img.shields.io/badge/Laravel-10%20|%2011%20|%2012-red) ![PHP](https://img.shields.io/badge/PHP-8.1%2B-blue) ![License](https://img.shields.io/badge/License-MIT-green)
+
+## Demo
+
+🔗 [Live Demo](https://abdurrahmanbd.com/terminal)
+
 ## Features
 
 - **Laravel Artisan** — Run any artisan command with one click
@@ -24,7 +30,61 @@ A powerful web-based terminal for Laravel applications. Execute artisan commands
 
 ## Installation
 
-### 1. Add the package path to your project's `composer.json`
+### Step 1: Add the GitHub repository to your `composer.json`
+
+Add this to your project's `composer.json`:
+
+```json
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/abdurrahman-eee/laravel-terminal"
+        }
+    ]
+}
+```
+
+### Step 2: Install the package
+
+```bash
+composer require abdurrahman/laravel-terminal
+```
+
+Laravel will auto-discover the service provider. No manual registration needed.
+
+### Step 3: Publish the config (optional)
+
+Publish the config file to customize settings:
+
+```bash
+php artisan vendor:publish --tag=terminal-config
+```
+
+### Step 4: Publish the views (optional)
+
+Publish the views if you want to customize the terminal UI:
+
+```bash
+php artisan vendor:publish --tag=terminal-views
+```
+
+### Step 5: Visit the terminal
+
+Open your browser and go to:
+
+```
+https://yoursite.com/terminal
+```
+
+That's it! 🎉
+
+### Alternative: Local path installation
+
+If you prefer to keep the package inside your project:
+
+1. Copy the package folder to `packages/abdurrahman/laravel-terminal/`
+2. Add this to your `composer.json`:
 
 ```json
 {
@@ -37,23 +97,7 @@ A powerful web-based terminal for Laravel applications. Execute artisan commands
 }
 ```
 
-### 2. Require the package
-
-```bash
-composer require abdurrahman/laravel-terminal
-```
-
-### 3. Publish the config (optional)
-
-```bash
-php artisan vendor:publish --tag=terminal-config
-```
-
-### 4. Publish the views (optional, for customization)
-
-```bash
-php artisan vendor:publish --tag=terminal-views
-```
+3. Run `composer require abdurrahman/laravel-terminal`
 
 ## Configuration
 
@@ -130,6 +174,26 @@ Visit `https://yoursite.com/terminal` (or your configured prefix) in your browse
 - Only whitelisted artisan commands can be executed
 - Configure `blocked_commands` and `allowed_*_commands` in config
 
+> ⚠️ **Warning**: This package gives browser-based shell access. Always protect it with authentication middleware and never expose it publicly without auth.
+
+## Uninstall
+
+```bash
+composer remove abdurrahman/laravel-terminal
+```
+
+Optionally remove published files:
+```bash
+rm config/terminal.php
+rm -rf resources/views/vendor/terminal
+```
+
+## Author
+
+**Abdur Rahman**
+- GitHub: [@abdurrahman-eee](https://github.com/abdurrahman-eee)
+- Website: [abdurrahmanbd.com](https://abdurrahmanbd.com)
+
 ## License
 
-MIT
+MIT — see [LICENSE](LICENSE) for details.

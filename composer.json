@@ -4,10 +4,15 @@
     "description": "A beautiful web-based terminal for Laravel applications. Execute artisan, composer, npm, git, and shell commands from your browser with auto-suggestions, command history, and error log viewer.",
     "keywords": ["laravel", "terminal", "artisan", "web-terminal", "console", "ssh"],
     "license": "MIT",
+    "homepage": "https://github.com/abdurrahman-eee/laravel-terminal",
+    "support": {
+        "issues": "https://github.com/abdurrahman-eee/laravel-terminal/issues",
+        "source": "https://github.com/abdurrahman-eee/laravel-terminal"
+    },
     "authors": [
         {
             "name": "Abdur Rahman",
-            "email": "abdurrahman@example.com"
+            "homepage": "https://abdurrahmanbd.com"
         }
     ],
     "require": {
