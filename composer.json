@@ -1,0 +1,31 @@
+{
+    "name": "abdurrahman/laravel-terminal",
+    "version": "1.0.0",
+    "description": "A beautiful web-based terminal for Laravel applications. Execute artisan, composer, npm, git, and shell commands from your browser with auto-suggestions, command history, and error log viewer.",
+    "keywords": ["laravel", "terminal", "artisan", "web-terminal", "console", "ssh"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Abdur Rahman",
+            "email": "abdurrahman@example.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "illuminate/support": "^10.0|^11.0|^12.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Abdurrahman\\LaravelTerminal\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Abdurrahman\\LaravelTerminal\\TerminalServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
