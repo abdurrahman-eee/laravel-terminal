@@ -4,9 +4,11 @@ A powerful web-based terminal for Laravel applications. Execute artisan commands
 
 ![Laravel Terminal](https://img.shields.io/badge/Laravel-10%20|%2011%20|%2012-red) ![PHP](https://img.shields.io/badge/PHP-8.1%2B-blue) ![License](https://img.shields.io/badge/License-MIT-green)
 
-## Demo
+## Screenshots
 
-🔗 [Live Demo](https://abdurrahmanbd.com/terminal)
+![Terminal Main View](asset/pic1.jpg)
+
+![Terminal Features](asset/pic2.jpg)
 
 ## Features
 
