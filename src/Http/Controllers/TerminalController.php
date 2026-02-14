@@ -168,6 +168,10 @@ class TerminalController extends Controller
             'command' => 'required|string'
         ]);
 
+        // Extend PHP execution time to match our configured timeout
+        $maxTime = config('terminal.timeout', 300);
+        set_time_limit($maxTime + 30);
+
         $command = trim($request->input('command'));
         
         // Security check - reuse from executeCommand
@@ -195,6 +199,11 @@ class TerminalController extends Controller
         
         // Auto-translate commands to use correct paths
         $command = $this->translateCommand($command, $projectPath, $userHome);
+
+        // Force non-interactive mode for artisan commands to prevent hanging
+        if (preg_match('/php\s+artisan\s+/', $command) && strpos($command, '--no-interaction') === false && strpos($command, '-n') === false) {
+            $command .= ' --no-interaction';
+        }
 
         // Set proper environment variables
         $composerHome = $projectPath . '/storage/composer';
@@ -228,12 +237,14 @@ class TerminalController extends Controller
                 ]);
             }
 
+            // Close stdin immediately to prevent commands from waiting for input
+            fclose($pipes[0]);
+
             // Set streams to non-blocking
             stream_set_blocking($pipes[1], false);
             stream_set_blocking($pipes[2], false);
 
             $output = '';
-            $maxTime = config('terminal.timeout', 300);
             $startTime = time();
 
             // Read output in chunks for real-time display
@@ -261,7 +272,6 @@ class TerminalController extends Controller
                 }
             }
 
-            fclose($pipes[0]);
             fclose($pipes[1]);
             fclose($pipes[2]);
             $returnCode = proc_close($process);
